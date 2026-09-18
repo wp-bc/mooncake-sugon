@@ -26,6 +26,7 @@ set(MOONCAKE_STORE_MASTER_SOURCES
     config/s3_client_config.cpp
     segment_allocator_registration.cpp
     client_offboarding.cpp
+    decaying_ddsketch.cpp
     master_service.cpp
     master_store_backend.cpp
     weight_store_manager.cpp
