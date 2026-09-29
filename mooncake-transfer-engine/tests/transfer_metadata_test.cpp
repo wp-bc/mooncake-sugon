@@ -226,14 +226,14 @@ class LocalHttpMetadataServer {
         addr.sin_family = AF_INET;
         addr.sin_port = 0;
         addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-        if (bind(listen_fd_, reinterpret_cast<sockaddr*>(&addr),
+        if (bind(listen_fd_, reinterpret_cast<sockaddr *>(&addr),
                  sizeof(addr)) != 0)
             return;
         if (listen(listen_fd_, 16) != 0) return;
 
         socklen_t len = sizeof(addr);
-        if (getsockname(listen_fd_, reinterpret_cast<sockaddr*>(&addr), &len) !=
-            0)
+        if (getsockname(listen_fd_, reinterpret_cast<sockaddr *>(&addr),
+                        &len) != 0)
             return;
         port_ = ntohs(addr.sin_port);
         ok_ = true;
@@ -253,7 +253,7 @@ class LocalHttpMetadataServer {
     }
 
    private:
-    static std::string decodeUrlComponent(const std::string& value) {
+    static std::string decodeUrlComponent(const std::string &value) {
         auto hex_digit = [](char c) -> int {
             if (c >= '0' && c <= '9') return c - '0';
             if (c >= 'a' && c <= 'f') return c - 'a' + 10;
@@ -278,7 +278,7 @@ class LocalHttpMetadataServer {
         return decoded;
     }
 
-    static bool sendExact(int fd, const std::string& value) {
+    static bool sendExact(int fd, const std::string &value) {
         size_t offset = 0;
         while (offset < value.size()) {
             const ssize_t n = send(fd, value.data() + offset,
@@ -289,7 +289,7 @@ class LocalHttpMetadataServer {
         return true;
     }
 
-    static bool readRequest(int fd, std::string& request) {
+    static bool readRequest(int fd, std::string &request) {
         constexpr size_t kMaximumRequestSize = 1 << 20;
         char buffer[4096];
         size_t header_end = std::string::npos;
